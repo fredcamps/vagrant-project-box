@@ -33,7 +33,7 @@ Vagrant::configure(VAGRANTFILE_API_VERSION) do |config|
 
     config.vm.provision :shell, path: "scripts/base.sh"
     config.vm.provision :shell, path: "scripts/postfix.sh"
-    #config.vm.provision :shell, path: "scripts/mysql.sh"
-    #config.vm.provision :shell, path: "scripts/redmine.sh"
+    config.vm.provision :shell, path: "scripts/mysql.sh"
+    config.vm.provision :shell, path: "scripts/redmine.sh"
     config.vm.provision :shell, path: "scripts/gitlab.sh"
 end
