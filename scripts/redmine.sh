@@ -8,9 +8,7 @@ REDMINE_URL="http://www.redmine.org/releases/redmine-$REDMINE_VERSION.tar.gz"
 function install_redmine
 {
     # install deps
-    gem install rails
-    gem install bundler
-    gem install ssl
+    gem install rails bundler ssl
 
     # download redmine
     wget -O "/tmp/redmine-$REDMINE_VERSION.tar.gz" "$REDMINE_URL"
