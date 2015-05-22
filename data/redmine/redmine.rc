@@ -9,35 +9,34 @@
 # Description:       Starts redmine from /home/redmine/redmine.
 ### END INIT INFO
 
+# fred
+
 # Do NOT "set -e"
 
-APP_USER=redmine
-APP_NAME=redmine
+APP_USER="redmine"
+APP_NAME="redmine"
 APP_ROOT="/home/$APP_USER/$APP_NAME"
-RAILS_ENV=production
+RAILS_ENV="production"
 
-# RBENV_ROOT="/home/$APP_USER/.rbenv"
-# PATH="$RBENV_ROOT/bin:$RBENV_ROOT/shims:$PATH"
-# SET_PATH="cd $APP_ROOT; rbenv rehash"
+SET_PATH="cd $APP_ROOT"
 DAEMON="bundle exec puma"
 DAEMON_ARGS="-C $APP_ROOT/config/puma.rb -e $RAILS_ENV"
-# CMD="$SET_PATH; $DAEMON $DAEMON_ARGS"
-CMD="$DAEMON $DAEMON_ARGS"
-NAME=redmine
-# DESC="Redmine Service"
+CMD="$SET_PATH; $DAEMON $DAEMON_ARGS"
+NAME="redmine"
+DESC="Redmine Service"
 PIDFILE="$APP_ROOT/tmp/pids/puma.pid"
 SCRIPTNAME="/etc/init.d/$NAME"
 
 cd $APP_ROOT || exit 1
 
 sig () {
-        test -s "$PIDFILE" && kill -$1 `cat $PIDFILE`
+        test -s "$PIDFILE" && kill "-$1" "$(cat $PIDFILE)"
 }
 
 case $1 in
   start)
         sig 0 && echo >&2 "Already running" && exit 0
-        su - $APP_USER -c "$CMD"
+        su - "$APP_USER" -c "$CMD"
         ;;
   stop)
         sig QUIT && exit 0
@@ -56,5 +55,3 @@ case $1 in
         exit 1
         ;;
 esac
-
-:

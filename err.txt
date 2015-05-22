@@ -1,0 +1,1 @@
+[31mVagrant exited after cleanup due to external interrupt.[0m

@@ -5,14 +5,14 @@ VAGRANTFILE_API_VERSION = "2"
 
 Vagrant::configure(VAGRANTFILE_API_VERSION) do |config|
 
-    config.vm.box_url = "file://" + File.dirname(__FILE__) + "/data/trusty-server-amd64.box"
+    config.vm.box_url = "file://" + File.dirname(__FILE__) + "/box/trusty-server-amd64.box"
     config.vm.box = "manager"
     config.vm.hostname = "manager"
-    config.vm.network "public_network", type: "dhcp"
+    config.vm.network "private_network", ip: "192.168.33.102"
     config.vm.synced_folder "./data", "/vagrant"
 
     config.vm.provider "virtualbox" do |v|
-      v.memory = 1028
+      v.memory = 2048
       v.cpus = 2
     end
 
@@ -28,6 +28,8 @@ Vagrant::configure(VAGRANTFILE_API_VERSION) do |config|
         config.cache.scope = :machine # :machine or :box
     end
 
+    config.vm.provision :shell, path: "scripts/base.sh"
+    config.vm.provision :shell, path: "scripts/mysql.sh"
     config.vm.provision :shell, path: "scripts/redmine.sh"
 
 end

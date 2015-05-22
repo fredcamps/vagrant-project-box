@@ -1,2 +1,3 @@
+tags
 .vagrant
-data/*.box*
+box/*.box
