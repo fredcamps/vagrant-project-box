@@ -1,0 +1,19 @@
+relayhost = [smtp.gmail.com]:587
+smtp_use_tls = yes
+smtp_sasl_auth_enable = yes
+smtp_sasl_password_maps = hash:/etc/postfix/sasl_passwd
+smtp_sasl_security_options = noanonymous
+smtp_tls_loglevel = 1
+smtp_tls_per_site = hash:/etc/postfix/tls_per_site
+# smtp_tls_CAfile = /etc/ssl/certs/Equifax_Secure_CA.pem
+smtp_tls_session_cache_database = btree:/var/lib/postfix/smtp_tls_session_cache
+
+myhostname = manager
+alias_maps = hash:/etc/aliases
+alias_database = hash:/etc/aliases
+mydestination = manager, localhost.localdomain, , localhost
+mynetworks = 127.0.0.0/8 172.17.0.0/16 [::ffff:127.0.0.0]/104 [::1]/128
+mailbox_size_limit = 0
+recipient_delimiter = +
+inet_interfaces = all
+inet_protocols = all
