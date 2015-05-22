@@ -16,6 +16,7 @@ function install_redmine
 
     cp /vagrant/redmine/database.yml "$REDMINE_PATH/config/database.yml"
     cp /vagrant/redmine/puma.rb "$REDMINE_PATH/config/puma.rb"
+    cp /vagrant/redmine/configuration.yml "$REDMINE_PATH/config/configuration.yml"
 
     {
         echo "# Gemfile.local"
@@ -23,7 +24,6 @@ function install_redmine
     } > "$REDMINE_PATH/Gemfile.local"
 
     cd "$REDMINE_PATH"
-
     bundle install --without development test
     bundle exec rake generate_secret_token
     RAILS_ENV=production bundle exec rake db:migrate
@@ -37,10 +37,10 @@ function install_redmine
     chmod -R 755 "$REDMINE_PATH/public/plugin_assets"
     chown -R redmine:redmine "$REDMINE_PATH"
 
+    cp /vagrant/redmine/redmine /etc/nginx/sites-available/redmine ; ln -sf /etc/nginx/sites-available/redmine /etc/nginx/sites-enabled/redmine
     cp /vagrant/redmine/redmine.rc /etc/init.d/redmine
     chmod +x /etc/init.d/redmine
     update-rc.d redmine defaults
-    cp /vagrant/redmine/redmine /etc/nginx/sites-available/redmine ; ln -sf /etc/nginx/sites-available/redmine /etc/nginx/sites-enabled/redmine
 }
 
 adduser --disabled-login --gecos 'Redmine' redmine
