@@ -8,7 +8,10 @@ Vagrant::configure(VAGRANTFILE_API_VERSION) do |config|
     config.vm.box_url = "file://" + File.dirname(__FILE__) + "/box/trusty-server-amd64.box"
     config.vm.box = "manager"
     config.vm.hostname = "manager"
-    config.vm.network "private_network", ip: "192.168.33.102"
+    #config.vm.network "private_network", ip: "192.168.33.102"
+    #config.vm.network "public_network", ip: "192.168.33.102"
+    #config.vm.network "private_network", type: "dhcp"
+    config.vm.network "public_network", type: "dhcp"
     config.vm.synced_folder "./data", "/vagrant"
 
     config.vm.provider "virtualbox" do |v|
@@ -29,7 +32,8 @@ Vagrant::configure(VAGRANTFILE_API_VERSION) do |config|
     end
 
     config.vm.provision :shell, path: "scripts/base.sh"
-    config.vm.provision :shell, path: "scripts/mysql.sh"
-    config.vm.provision :shell, path: "scripts/redmine.sh"
-
+    config.vm.provision :shell, path: "scripts/postfix.sh"
+    #config.vm.provision :shell, path: "scripts/mysql.sh"
+    #config.vm.provision :shell, path: "scripts/redmine.sh"
+    config.vm.provision :shell, path: "scripts/gitlab.sh"
 end
