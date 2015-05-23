@@ -28,10 +28,11 @@ apt-get install autoconf \
     libmagickwand-dev \
     libmariadbclient-dev \
     debconf-utils \
+    openssh-server \
+    ca-certificates \
     nginx \
     ruby \
     ruby-dev \
     rubygems-integration \
-    openssh-server \
-    ca-certificates \
-    ruby-bundler 2> /dev/null || apt-get -f install -y 2> /dev/null
+    ruby-bundler 2> /dev/null
+apt-get -f install -y 2> /dev/null
